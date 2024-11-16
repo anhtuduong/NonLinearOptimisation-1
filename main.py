@@ -6,13 +6,15 @@ import pandas as pd
 # ----------------------------------------------------------------
 
 def load_data(data_file):
-    """_summary_
+    """ Load data from excel file
+    and return vector y and matrix X
 
     Args:
-        data_file (_type_): _description_
+        data_file (str): path to data file
 
     Returns:
-        _type_: _description_
+        y (np.array): vector of label 'survived'
+        X (np.array): matrix of features
     """
     data = pd.read_excel(data_file)
     y = np.array(data['survived'])
@@ -21,15 +23,15 @@ def load_data(data_file):
     return y, X
 
 def func_loglikelihood(wbar, X, y):
-    """_summary_
+    """ Compute the log-likelihood function
 
     Args:
-        wbar (_type_): _description_
-        X (_type_): _description_
-        y (_type_): _description_
+        wbar (np.array): vector of weights
+        X (np.array): matrix of features
+        y (np.array): vector of label 'survived'
 
     Returns:
-        _type_: _description_
+        loglikelihoodFunction (): log-likelihood function
     """
     w0 = wbar[0]
     w = np.delete(wbar, 0)
@@ -43,15 +45,8 @@ def func_loglikelihood(wbar, X, y):
     return loglikelihoodFunction
 
 def grad_loglikelihood(wbar, X, y):
-    """_summary_
+    """
 
-    Args:
-        wbar (_type_): _description_
-        X (_type_): _description_
-        y (_type_): _description_
-
-    Returns:
-        _type_: _description_
     """
     w0 = wbar[0]
     w = np.delete(wbar, 0)
@@ -65,14 +60,8 @@ def grad_loglikelihood(wbar, X, y):
     return gradient
 
 def hes_loglikelihood(wbar, X):
-    """_summary_
-
-    Args:
-        wbar (_type_): _description_
-        X (_type_): _description_
-
-    Returns:
-        _type_: _description_
+    """
+    
     """
     w0 = wbar[0]
     w = np.delete(wbar, 0)

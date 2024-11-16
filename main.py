@@ -1,13 +1,36 @@
 import numpy as np 
 import pandas as pd
 
-data = pd.read_excel('D:/Block 5/titanic.xlsx')
-y = np.array(data['survived'])
+# ----------------------------------------------------------------
+# FUNCTIONS
+# ----------------------------------------------------------------
 
-X = data.drop(columns=['name', 'survived'])
-X = X.values
+def load_data(data_file):
+    """_summary_
 
-def func_loglikelihood(wbar, X, y) :
+    Args:
+        data_file (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    data = pd.read_excel(data_file)
+    y = np.array(data['survived'])
+    X = data.drop(columns=['name', 'survived'])
+    X = X.values
+    return y, X
+
+def func_loglikelihood(wbar, X, y):
+    """_summary_
+
+    Args:
+        wbar (_type_): _description_
+        X (_type_): _description_
+        y (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     w0 = wbar[0]
     w = np.delete(wbar, 0)
     wT= np.transpose(w)
@@ -19,10 +42,17 @@ def func_loglikelihood(wbar, X, y) :
 
     return loglikelihoodFunction
 
-likelihood = func_loglikelihood([1, 1], X, y)
-print (likelihood)
+def grad_loglikelihood(wbar, X, y):
+    """_summary_
 
-def grad_loglikelihood(wbar, X, y) :
+    Args:
+        wbar (_type_): _description_
+        X (_type_): _description_
+        y (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     w0 = wbar[0]
     w = np.delete(wbar, 0)
     wT= np.transpose(w)
@@ -34,7 +64,16 @@ def grad_loglikelihood(wbar, X, y) :
     
     return gradient
 
-def hes_loglikelihood(wbar, X) :
+def hes_loglikelihood(wbar, X):
+    """_summary_
+
+    Args:
+        wbar (_type_): _description_
+        X (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     w0 = wbar[0]
     w = np.delete(wbar, 0)
     wT= np.transpose(w)
@@ -48,5 +87,11 @@ def hes_loglikelihood(wbar, X) :
     
     return hessian
 
+# ----------------------------------------------------------------
+# MAIN
+# ----------------------------------------------------------------
 
+if __name__ == '__main__':
 
+    data_file = 'titanic.xlsx'
+    y, X = load_data(data_file)
